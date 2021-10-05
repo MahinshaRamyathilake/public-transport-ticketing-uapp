@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:sl_mate/model/user_model.dart';
 import 'package:sl_mate/pages/login.dart';
+import 'package:sl_mate/pages/qr.dart';
+import 'package:sl_mate/pages/ticket.dart';
+import 'package:sl_mate/services/user_service.dart';
 
 class MainDrawer extends StatelessWidget {
+  String userName = "";
+  String email = "";
+
+  void getUser() {
+
+    UserService userService = new UserService();
+    userService.getUserDetails('ADMIN').then((responce) {
+      print(responce);
+      userName = responce.username;
+      email = responce.email;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getUser();
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -17,29 +35,21 @@ class MainDrawer extends StatelessWidget {
                   Container(
                     width: 100,
                     height: 100,
-                    margin: EdgeInsets.only(
-                        top: 30,
-                        bottom: 10
-                    ),
+                    margin: EdgeInsets.only(top: 30, bottom: 10),
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"
-                        ),
-                        fit: BoxFit.fill
-                      )
-                    ),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"),
+                            fit: BoxFit.fill)),
                   ),
-                  Text("MenukaJ",style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white
-                    ),
+                  Text(
+                    userName,
+                    style: TextStyle(fontSize: 22, color: Colors.white),
                   ),
-                  Text("MenukaJ@gmail.com",style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white
-                  ),
+                  Text(
+                    email,
+                    style: TextStyle(fontSize: 22, color: Colors.white),
                   )
                 ],
               ),
@@ -51,22 +61,50 @@ class MainDrawer extends StatelessWidget {
               'Profile',
               style: TextStyle(
                 fontSize: 18,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
               ),
             ),
             onTap: () {},
           ),
-
+          ListTile(
+            leading: Icon(Icons.qr_code),
+            title: Text(
+              'My QR',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onTap: () => Navigator.of(context).push(
+                new MaterialPageRoute(builder: (context) => new QrPage())),
+          ),
+          ListTile(
+            leading: Icon(Icons.airplane_ticket),
+            title: Text(
+              'My Ticket',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onTap: () => Navigator.of(context).push(
+                new MaterialPageRoute(builder: (context) => new Ticket())),
+          ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text(
               'Logout',
               style: TextStyle(
                 fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => new LoginPage(
-                ))),
+            onTap: () => Navigator.of(context).push(
+                new MaterialPageRoute(builder: (context) => new LoginPage())),
           )
         ],
       ),

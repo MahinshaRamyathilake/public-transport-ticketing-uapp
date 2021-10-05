@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sl_mate/components/main_drawer.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
-class QrPage extends StatefulWidget {
+class Ticket extends StatefulWidget {
   @override
-  _QrPageState createState() => _QrPageState();
+  _TicketState createState() => _TicketState();
 }
 
-class _QrPageState extends State<QrPage> {
-  @override
+class _TicketState extends State<Ticket> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My QR"),
+        title: Text("My Ticket"),
       ),
       //drawer: MainDrawer(),
       body: Center(
+
+
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
+
           children: <Widget>[
             Container(
               width: double.infinity,
@@ -38,6 +40,39 @@ class _QrPageState extends State<QrPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                            child: Text('From: Kandy', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 20),),
+                          )
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                            child: Text('To: InProgress', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 20),),
+                          )
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        child: Text('Amount: Calculating',style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 20),),
+                      ),
+
+                    ],
+                  ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

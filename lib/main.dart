@@ -7,7 +7,7 @@ void main() {
   runApp(
       new MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: LoginPage()
+          home: HomePage()
       )
   );
 }
