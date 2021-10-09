@@ -13,11 +13,19 @@ class LoginService {
 
     print(loginRequestModel);
     final responce = await http.post(
-        Uri.parse("https://shopping-backend-api.herokuapp.com/auth/signin"),
-        body: loginRequestModel.toJson());
-
-    print(responce.statusCode.toString());
-    if (responce.statusCode == 200 || responce.statusCode == 422) {
+      Uri.parse("https://public-transport-ticketing.herokuapp.com/auth/signin"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'userName': loginRequestModel.userName,
+        'password': loginRequestModel.password
+      }),
+    );
+    print(jsonDecode(responce.body));
+    if (responce.statusCode == 201 ||
+        responce.statusCode == 401 ||
+        responce.statusCode == 422) {
       return LoginResponceModel.fromJson(jsonDecode(responce.body));
     } else {
       throw Exception("Failed to load Data");

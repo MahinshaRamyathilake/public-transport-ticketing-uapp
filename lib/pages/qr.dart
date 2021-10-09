@@ -3,12 +3,17 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sl_mate/components/main_drawer.dart';
 
 class QrPage extends StatefulWidget {
+  final accessToken;
+  final username;
+  final email;
+
+  QrPage({this.accessToken, this.username, this.email});
+
   @override
   _QrPageState createState() => _QrPageState();
 }
 
 class _QrPageState extends State<QrPage> {
-  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,10 +36,8 @@ class _QrPageState extends State<QrPage> {
                     BoxShadow(
                         color: Theme.of(context).hintColor.withOpacity(0.2),
                         offset: Offset(0, 10),
-                        blurRadius: 20
-                    )
-                  ]
-              ),
+                        blurRadius: 20)
+                  ]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -42,21 +45,19 @@ class _QrPageState extends State<QrPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                         child: QrImage(
-                          data: "Menuka",
+                          data: widget.accessToken,
                           version: QrVersions.auto,
                           size: 300,
                         ),
                       ),
-
                     ],
                   ),
                 ],
               ),
             ),
-
-
           ],
         ),
       ),

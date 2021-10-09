@@ -16,8 +16,6 @@ class _TicketState extends State<Ticket> {
       ),
       //drawer: MainDrawer(),
       body: Center(
-
-
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
 
@@ -33,10 +31,8 @@ class _TicketState extends State<Ticket> {
                     BoxShadow(
                         color: Theme.of(context).hintColor.withOpacity(0.2),
                         offset: Offset(0, 10),
-                        blurRadius: 20
-                    )
-                  ]
-              ),
+                        blurRadius: 20)
+                  ]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -45,10 +41,16 @@ class _TicketState extends State<Ticket> {
                     children: [
                       Center(
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                            child: Text('From: Kandy', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 20),),
-                          )
-                      ),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        child: Text(
+                          'From: Kandy',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      )),
                     ],
                   ),
                   Row(
@@ -56,9 +58,31 @@ class _TicketState extends State<Ticket> {
                     children: [
                       Center(
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                            child: Text('To: InProgress', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 20),),
-                          )
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        child: Text(
+                          'To: InProgress',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      )),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        child: Text(
+                          'Amount: Calculating',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
                       ),
                     ],
                   ),
@@ -66,32 +90,19 @@ class _TicketState extends State<Ticket> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                        child: Text('Amount: Calculating',style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 20),),
-                      ),
-
-                    ],
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                         child: QrImage(
                           data: "Menuka",
                           version: QrVersions.auto,
                           size: 300,
                         ),
                       ),
-
                     ],
                   ),
                 ],
               ),
             ),
-
-
           ],
         ),
       ),

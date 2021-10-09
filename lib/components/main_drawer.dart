@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sl_mate/model/login_model.dart';
 import 'package:sl_mate/model/user_model.dart';
 import 'package:sl_mate/pages/login.dart';
 import 'package:sl_mate/pages/qr.dart';
@@ -6,22 +7,14 @@ import 'package:sl_mate/pages/ticket.dart';
 import 'package:sl_mate/services/user_service.dart';
 
 class MainDrawer extends StatelessWidget {
-  String userName = "";
-  String email = "";
+  final accessToken;
+  final username;
+  final email;
 
-  void getUser() {
-
-    UserService userService = new UserService();
-    userService.getUserDetails('ADMIN').then((responce) {
-      print(responce);
-      userName = responce.username;
-      email = responce.email;
-    });
-  }
+  MainDrawer({this.accessToken, this.username, this.email});
 
   @override
   Widget build(BuildContext context) {
-    getUser();
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -44,7 +37,7 @@ class MainDrawer extends StatelessWidget {
                             fit: BoxFit.fill)),
                   ),
                   Text(
-                    userName,
+                    username,
                     style: TextStyle(fontSize: 22, color: Colors.white),
                   ),
                   Text(
@@ -77,8 +70,12 @@ class MainDrawer extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            onTap: () => Navigator.of(context).push(
-                new MaterialPageRoute(builder: (context) => new QrPage())),
+            onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context) => new QrPage(
+                      username: username,
+                      email: email,
+                      accessToken: accessToken,
+                    ))),
           ),
           ListTile(
             leading: Icon(Icons.airplane_ticket),

@@ -2,8 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:sl_mate/components/main_drawer.dart';
 import 'package:sl_mate/pages/qr.dart';
 import 'package:sl_mate/pages/ticket.dart';
+import 'package:sl_mate/services/user_account_service.dart';
 
 class HomePage extends StatefulWidget {
+  final accessToken;
+  final username;
+  final email;
+  final id;
+
+  HomePage({this.accessToken, this.username, this.email, this.id});
+
+  String balance = "";
+  String status = "";
+  String accountNo = "";
+
+  void getUserAccount() {
+    UserAccountService userAccountService = new UserAccountService();
+    userAccountService.getUserAccDetails(id).then((responce) {
+      print(responce);
+      balance = responce.amount;
+      status = responce.status;
+      accountNo = responce.accountNo;
+    });
+    getUserAccount();
+  }
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -15,7 +38,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Home"),
       ),
-      drawer: MainDrawer(),
+      drawer: MainDrawer(
+          accessToken: widget.accessToken,
+          email: widget.email,
+          username: widget.username),
       body: Center(
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                         padding:
                             EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                         child: Text(
-                          '955.00',
+                          widget.balance,
                           style: TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
@@ -76,7 +102,21 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Container(
                         child: Text(
-                          'Account No: 0216446166',
+                          'Account No: ' + widget.accountNo,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Text(
+                          widget.status,
                           style: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
@@ -102,8 +142,13 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-                onPressed: () => Navigator.of(context).push(
-                    new MaterialPageRoute(builder: (context) => new QrPage())),
+                onPressed: () =>
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => new QrPage(
+                              accessToken: widget.accessToken,
+                              email: widget.email,
+                              username: widget.username,
+                            ))),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(0)),
               ),
