@@ -4,6 +4,7 @@ import 'package:sl_mate/model/login_model.dart';
 import 'package:sl_mate/model/user_model.dart';
 import 'package:sl_mate/pages/home.dart';
 import 'package:sl_mate/services/login_service.dart';
+import 'package:sl_mate/services/user_account_service.dart';
 import 'package:sl_mate/services/user_service.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -146,17 +147,29 @@ class _LoginPageState extends State<LoginPage> {
                           print(requestModel.toJson());
                         }
                         LoginService loginService = new LoginService();
+
+                        UserAccountService userAccountService =
+                            new UserAccountService();
                         loginService.login(requestModel).then((value) => {
                               if (value.accessToken != null &&
                                   !value.accessToken.isEmpty)
                                 {
-                                  Navigator.of(context)
-                                      .push(new MaterialPageRoute(
-                                          builder: (context) => new HomePage(
-                                                username: value.username,
-                                                email: value.email,
-                                                accessToken: value.accessToken,
-                                              ))),
+                                  userAccountService
+                                      .getUserAccDetails(value.id)
+                                      .then((responce) {
+                                    Navigator.of(context)
+                                        .push(new MaterialPageRoute(
+                                            builder: (context) => new HomePage(
+                                                  username: value.username,
+                                                  email: value.email,
+                                                  accessToken:
+                                                      value.accessToken,
+                                                  id: value.id,
+                                                  accountNo: responce.accountNo,
+                                                  balance: responce.amount,
+                                                  status: responce.status,
+                                                )));
+                                  }),
                                 }
                               else
                                 {

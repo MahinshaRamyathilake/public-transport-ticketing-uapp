@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sl_mate/components/main_drawer.dart';
+import 'package:sl_mate/model/user_account_model.dart';
 import 'package:sl_mate/pages/qr.dart';
 import 'package:sl_mate/pages/ticket.dart';
 import 'package:sl_mate/services/user_account_service.dart';
@@ -9,23 +10,18 @@ class HomePage extends StatefulWidget {
   final username;
   final email;
   final id;
+  final balance;
+  final status;
+  final accountNo;
 
-  HomePage({this.accessToken, this.username, this.email, this.id});
-
-  String balance = "";
-  String status = "";
-  String accountNo = "";
-
-  void getUserAccount() {
-    UserAccountService userAccountService = new UserAccountService();
-    userAccountService.getUserAccDetails(id).then((responce) {
-      print(responce);
-      balance = responce.amount;
-      status = responce.status;
-      accountNo = responce.accountNo;
-    });
-    getUserAccount();
-  }
+  HomePage(
+      {this.accessToken,
+      this.username,
+      this.email,
+      this.id,
+      this.balance,
+      this.status,
+      this.accountNo});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -88,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                         padding:
                             EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                         child: Text(
-                          widget.balance,
+                          widget.balance.toString(),
                           style: TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,

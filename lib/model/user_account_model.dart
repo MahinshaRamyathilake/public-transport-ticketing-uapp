@@ -1,6 +1,6 @@
 class UserAccount {
   final String accountNo;
-  final String amount;
+  final double amount;
   final String status;
 
   UserAccount({
